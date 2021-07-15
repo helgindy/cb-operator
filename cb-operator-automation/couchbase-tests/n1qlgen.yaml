@@ -1,0 +1,24 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: n1qlgen-1
+spec:
+  template:
+    spec:
+      containers:
+      - name: n1qlgen
+        image: tahmmee/n1qlgen
+        imagePullPolicy: Always
+        command: ["/go/bin/n1qlgen",
+                  "-pod=cb-example-0000", 
+                   "-cluster=cb-example",
+                   "-bucket=travel-sample",
+                   "-username=Administrator",
+                   "-password=password",
+                   "-duration=300", "-concurrency=30", 
+                   "-seed=1234"] 
+      restartPolicy: Never
+      resources:
+        requests:
+          memory: "512Mi"
